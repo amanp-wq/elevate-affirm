@@ -1,485 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Payment - ElevateMe</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            margin-bottom: 30px;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #006AFF;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-image {
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        .secure-badge {
-            display: flex;
-            align-items: center;
-            background: #f0f6ff;
-            padding: 10px 15px;
-            border-radius: 50px;
-            font-weight: 600;
-            color: #006AFF;
-        }
-        
-        .secure-badge i {
-            margin-right: 8px;
-        }
-        
-        .page-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .page-title h1 {
-            font-size: 32px;
-            color: #111;
-            margin-bottom: 10px;
-        }
-        
-        .page-title p {
-            font-size: 18px;
-            color: #555;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .content-wrapper {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .payment-box {
-            flex: 1;
-            min-width: 300px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            animation: fadeInUp 0.8s ease-in-out;
-        }
-        
-        .payment-box h2 {
-            text-align: center;
-            color: #111;
-            margin-bottom: 12px;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        .payment-box p {
-            text-align: center;
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 22px;
-        }
-        
-        .info {
-            background: #f0f6ff;
-            padding: 12px;
-            border: 1px solid #d0e2ff;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 22px;
-            color: #333;
-        }
-        
-        .info i {
-            color: #006AFF;
-            margin-right: 8px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin: 12px 0 6px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #222;
-        }
-        
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #006AFF;
-            box-shadow: 0 0 6px rgba(0,106,255,0.3);
-            outline: none;
-        }
-        
-        .price-input-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .dollar-sign {
-            background: #f0f6ff;
-            padding: 12px 0 12px 12px;
-            border: 1px solid #ddd;
-            border-right: none;
-            border-radius: 8px 0 0 8px;
-            font-weight: 600;
-            color: #006AFF;
-            height: 44px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .price-input {
-            border-radius: 0 8px 8px 0 !important;
-            flex: 1;
-        }
-        
-        .btn {
-            width: 100%;
-            margin-top: 20px;
-            background: linear-gradient(90deg, #006AFF, #0096FF);
-            color: #fff;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .btn:hover {
-            background: linear-gradient(90deg, #0051CC, #007BFF);
-            transform: scale(1.03);
-        }
-        
-        .btn i {
-            margin-right: 10px;
-        }
-        
-        .benefits {
-            flex: 1;
-            min-width: 300px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            animation: fadeInUp 1s ease-in-out;
-        }
-        
-        .benefits h2 {
-            color: #111;
-            margin-bottom: 20px;
-            font-size: 22px;
-            text-align: center;
-        }
-        
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .benefit-icon {
-            width: 50px;
-            height: 50px;
-            background: #f0f6ff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 15px;
-            color: #006AFF;
-            font-size: 20px;
-        }
-        
-        .benefit-content h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #222;
-        }
-        
-        .benefit-content p {
-            font-size: 14px;
-            color: #555;
-        }
-        
-        footer {
-            margin-top: 50px;
-            text-align: center;
-            color: #777;
-            font-size: 14px;
-            padding: 20px 0;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .content-wrapper {
-                flex-direction: column;
-            }
-            
-            .page-title h1 {
-                font-size: 28px;
-            }
-            
-            .page-title p {
-                font-size: 16px;
-            }
-            
-            header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <img src="https://elevateme.pro/wp-content/themes/elevateme/assets/images/logo.svg" alt="ElevateMe Logo" class="logo-image">
-                
-            </div>
-            <div class="secure-badge">
-                <i class="fas fa-lock"></i>
-                <span>Secure Payment</span>
-            </div>
-        </header>
-        
-        <div class="page-title">
-            <h1>Select Your Program</h1>
-            <p>Choose the program that fits your goals and budget</p>
-        </div>
-        
-        <div class="content-wrapper">
-            <div class="payment-box">
-                <h2>Program Selection & Pricing</h2>
-                <p>Select a program and enter the pricing</p>
-                
-                <div class="info">
-                    <i class="fas fa-info-circle"></i>
-                    All prices are in USD. Payment plans available.
-                </div>
-                
-                <form id="program-form">
-                    <div class="form-group">
-                        <label for="program">Select Program Name</label>
-                        <select id="program" required>
-                            <option value="">-- Select a program --</option>
-                            <option value="Fasttrack Program">Fasttrack Program</option>
-                            <option value="Fundamental Program">Fundamental Program</option>
-                            <option value="Placement Plan">Placement Plan</option>
-                            <option value="Other">Other Program</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pricing">Pricing</label>
-                        <div class="price-input-container">
-                            <div class="dollar-sign">$</div>
-                            <input type="number" id="pricing" class="price-input" placeholder="Enter amount" min="0" step="0.01" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="name">Your full name</label>
-                        <input type="text" id="name" placeholder="Jane Smith" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="you@example.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone (digits only)</label>
-                        <input type="tel" id="phone" placeholder="4155551212" pattern="[0-9]{10}" required>
-                    </div>
-                    
-                    <button type="submit" class="btn">
-                        <i class="fas fa-lock"></i>
-                        Continue to Payment
-                    </button>
-                </form>
-            </div>
-            
-            <div class="benefits">
-                <h2>Why Choose Affirm?</h2>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>Flexible Payment Options</h3>
-                        <p>Pay over time with easy monthly installments</p>
-                    </div>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>No Hidden Fees</h3>
-                        <p>Know exactly what you'll pay upfront</p>
-                    </div>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>Secure Process</h3>
-                        <p>Your information is protected with encryption</p>
-                    </div>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>Instant Decision</h3>
-                        <p>Get approved in seconds without affecting your credit score</p>
-                    </div>
-                </div>
-                
-                <div class="benefit-item">
-                    <div class="benefit-icon">
-                        <i class="fas fa-user-clock"></i>
-                    </div>
-                    <div class="benefit-content">
-                        <h3>Convenient Scheduling</h3>
-                        <p>Choose payment dates that work for you</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <footer>
-            <p>© 2023 ElevateMe. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </footer>
-    </div>
+// netlify/functions/create-checkout.js
+export async function handler(event) {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
 
-   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const programSelect = document.getElementById('program');
-    const pricingInput = document.getElementById('pricing');
-    const form = document.getElementById('program-form');
+  try {
+    const { program, amount, name, email, phone } = JSON.parse(event.body || '{}');
+    if (!program || !amount || !name || !email || !phone) {
+      return { statusCode: 400, body: JSON.stringify({ error: 'Missing required fields.' }) };
+    }
 
-    // Autofill prices based on selection
-    programSelect.addEventListener('change', function() {
-      if (programSelect.value === "Fasttrack Program") {
-        pricingInput.value = "9999";
-      } else if (programSelect.value === "Fundamental Program") {
-        pricingInput.value = "6999";
-      } else if (programSelect.value === "Placement Plan") {
-        pricingInput.value = "3999";
-      } else {
-        pricingInput.value = "";
-        pricingInput.focus();
+    const host = event.headers['x-forwarded-host'] || event.headers.host;
+    const baseUrl = `https://${host}`;
+
+    const PUBLIC_KEY  = process.env.AFFIRM_PUBLIC_KEY;
+    const PRIVATE_KEY = process.env.AFFIRM_PRIVATE_KEY;
+    const AFFIRM_BASE = process.env.AFFIRM_BASE || 'https://sandbox.affirm.com';
+
+    const auth = 'Basic ' + Buffer.from(`${PUBLIC_KEY}:${PRIVATE_KEY}`).toString('base64');
+
+    // Split full name into first + last
+    const [firstName, ...rest] = name.trim().split(" ");
+    const lastName = rest.length > 0 ? rest.join(" ") : "Customer";
+
+    const checkout = {
+      merchant: {
+        public_api_key: PUBLIC_KEY,
+        user_confirmation_url: `${baseUrl}/api/affirm/confirm`,
+        user_cancel_url: `${baseUrl}/cancel.html`,
+        user_confirmation_url_action: 'GET',
+        name: 'Elevate Affirm'
+      },
+      items: [{
+        display_name: program,
+        sku: program.toUpperCase().replace(/\s+/g, '-'),
+        unit_price: amount, // cents
+        qty: 1
+      }],
+      currency: "USD",
+      shipping_amount: 0,
+      tax_amount: 0,
+      total: amount,
+
+      // ✅ Customer info
+      customer: {
+        email: email,
+        phone_number: phone
+      },
+
+      // ✅ Billing (required by Affirm)
+      billing: {
+        name: {
+          first: firstName,
+          last: lastName
+        },
+        address: {
+          line1: "123 Test St",
+          line2: "Apt 1",
+          city: "San Francisco",
+          state: "CA",
+          zipcode: "94105",
+          country: "USA"
+        }
+      },
+
+      // ✅ Shipping (required by Affirm)
+      shipping: {
+        name: {
+          first: firstName,
+          last: lastName
+        },
+        address: {
+          line1: "123 Test St",
+          line2: "Apt 1",
+          city: "San Francisco",
+          state: "CA",
+          zipcode: "94105",
+          country: "USA"
+        }
       }
+    };
+
+    console.log("Checkout payload:", JSON.stringify(checkout, null, 2));
+
+    const resp = await fetch(`${AFFIRM_BASE}/api/v2/checkout/direct`, {
+      method: 'POST',
+      headers: {
+        'Authorization': auth,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(checkout)
     });
 
-    // On submit → call backend
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    const text = await resp.text();
+    let data;
+    try { data = JSON.parse(text); } catch { data = { raw: text }; }
 
-      const payload = {
-        program: programSelect.value,
-        amount: Math.round(parseFloat(pricingInput.value) * 100), // cents
-        name: document.getElementById('name').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim()
-      };
+    console.log("Affirm response:", resp.status, data);
 
-      try {
-        const resp = await fetch('/api/affirm/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const data = await resp.json();
+    if (!resp.ok) {
+      return { statusCode: resp.status, body: JSON.stringify({ error: data }) };
+    }
 
-       if (data.redirect_url) {
- window.location.href = data.redirect_url; // send user to Affirm
- } else {
-   alert('Failed to start Affirm checkout');
-   console.error(data);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        redirect_url: data.redirect_url || data.redirect_checkout_url || null,
+        checkout_id: data.id || data.checkout_id || null
+      })
+    };
+  } catch (err) {
+    console.error("Function error:", err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+  }
 }
-      } catch (err) {
-        console.error(err);
-        alert('Error connecting to backend');
-      }
-    });
-  });
-</script>
-
-
-</html>
