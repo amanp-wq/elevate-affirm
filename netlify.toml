@@ -1,0 +1,13 @@
+[functions]
+directory = "netlify/functions"
+
+[[redirects]]
+from = "/api/affirm/create-checkout"
+to   = "/.netlify/functions/create-checkout"
+status = 200
+
+# Optional: authorize on return from Affirm (recommended)
+[[redirects]]
+from = "/api/affirm/confirm"
+to   = "/.netlify/functions/affirm-confirm"
+status = 200
